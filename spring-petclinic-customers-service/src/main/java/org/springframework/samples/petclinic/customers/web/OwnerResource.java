@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.customers.web;
 
 import io.micrometer.core.annotation.Timed;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.slf4j.Logger;
@@ -58,7 +59,21 @@ class OwnerResource {
     @ResponseStatus(HttpStatus.CREATED)
     public Owner createOwner(@Valid @RequestBody OwnerRequest ownerRequest) {
         Owner owner = ownerEntityMapper.map(new Owner(), ownerRequest);
+
+        funcaoLenta();
+
         return ownerRepository.save(owner);
+    }
+
+    @WithSpan("funcao-lenta-customers-service")
+    private void funcaoLenta() {
+        try {
+            log.info("Deixando a operação lenta XD");
+            Thread.sleep(3000);
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
