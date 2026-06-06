@@ -8,6 +8,24 @@ receivers:
 
 processors:
   batch:
+  tail_sampling:
+    decision_wait: 10s
+    num_traces: 10000
+    policies:
+      - name: keep-errors
+        type: status_code
+        status_code:
+          status_codes: [ ERROR ]
+
+      - name: keep-slow
+        type: latency
+        latency:
+          threshold_ms: 500
+
+      - name: probabilistic-sample
+        type: probabilistic
+        probabilistic:
+          sampling_percentage: 10
 
 exporters:
   debug:
@@ -21,7 +39,7 @@ service:
   pipelines:
     traces:
       receivers: [otlp]
-      processors: [batch]
+      processors: [batch, tail_sampling]
       exporters: [debug, otlp/tempo]
     metrics:
       receivers: [otlp]
