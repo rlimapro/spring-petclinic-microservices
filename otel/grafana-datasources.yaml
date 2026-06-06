@@ -5,8 +5,19 @@ datasources:
     access: proxy
     url: http://grafana-tempo:3200
     isDefault: true
+    jsonData:
+      tracesToLogsV2:
+        datasourceUid: loki
+        filterByTraceID: true
+        filterBySpanID: true
 
   - name: Prometheus
     type: prometheus
     access: proxy
     url: http://prometheus:9090
+
+  - name: Loki
+    uid: loki
+    type: loki
+    access: proxy
+    url: http://grafana-loki:3100

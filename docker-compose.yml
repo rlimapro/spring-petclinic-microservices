@@ -236,6 +236,16 @@ services:
     networks:
       - petclinic-net
 
+  grafana-loki:
+    image: grafana/loki:latest
+    command: [ "-config.file=/etc/loki/loki.yaml" ]
+    volumes:
+      - ./otel/loki.yaml:/etc/loki/loki.yaml
+    ports:
+      - "3100:3100"
+    networks:
+      - petclinic-net
+
   grafana:
     image: grafana/grafana:latest
     ports:

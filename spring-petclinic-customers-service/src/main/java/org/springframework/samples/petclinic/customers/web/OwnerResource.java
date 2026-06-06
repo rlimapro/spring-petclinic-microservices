@@ -62,7 +62,22 @@ class OwnerResource {
 
         funcaoLenta();
 
+        verificarSegurancaDados(owner);
+
         return ownerRepository.save(owner);
+    }
+
+    @WithSpan("validar-seguranca-dados")
+    private void verificarSegurancaDados(Owner owner) {
+        log.info("Iniciando verificação de segurança para o dono: {}", owner.getFirstName());
+
+        if (owner.getTelephone() != null && owner.getTelephone().startsWith("000")) {
+            log.error("Tentativa de cadastro com telefone bloqueado pela lista negra. Dono: {} {}, Telefone: {}",
+                owner.getFirstName(), owner.getLastName(), owner.getTelephone());
+            throw new RuntimeException("Telefone bloqueado pelo sistema de segurança de dados.");
+        }
+
+        log.info("Verificação de segurança concluída com sucesso para {}", owner.getFirstName());
     }
 
     @WithSpan("funcao-lenta-customers-service")
