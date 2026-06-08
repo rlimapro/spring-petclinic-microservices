@@ -1,8 +1,6 @@
 receivers:
   otlp:
     protocols:
-      grpc:
-        endpoint: 0.0.0.0:4317
       http:
         endpoint: 0.0.0.0:4318
 
@@ -45,10 +43,10 @@ service:
       processors: [batch, tail_sampling]
       exporters: [debug, otlp/tempo]
 
-    metrics:
-      receivers: [otlp]
-      processors: [batch]
-      exporters: [debug]
+#    metrics:
+#      receivers: [otlp]
+#      processors: [batch]
+#      exporters: [debug]
 
     logs:
       receivers: [otlp]

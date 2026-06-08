@@ -58,6 +58,7 @@ services:
       JAVA_TOOL_OPTIONS: "-javaagent:/otel/otel-javaagent.jar"
       OTEL_SERVICE_NAME: "customers-service"
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4318"
+      OTEL_METRICS_EXPORTER: "none"
       MANAGEMENT_METRICS_DISTRIBUTION_PERCENTILES-HISTOGRAM_HTTP_SERVER_REQUESTS: "true"
     ports:
       - 8081:8081
@@ -86,6 +87,7 @@ services:
       JAVA_TOOL_OPTIONS: "-javaagent:/otel/otel-javaagent.jar"
       OTEL_SERVICE_NAME: "visits-service"
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4318"
+      OTEL_METRICS_EXPORTER: "none"
       MANAGEMENT_METRICS_DISTRIBUTION_PERCENTILES-HISTOGRAM_HTTP_SERVER_REQUESTS: "true"
     ports:
       - 8082:8082
@@ -114,6 +116,7 @@ services:
       JAVA_TOOL_OPTIONS: "-javaagent:/otel/otel-javaagent.jar"
       OTEL_SERVICE_NAME: "vets-service"
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4318"
+      OTEL_METRICS_EXPORTER: "none"
       MANAGEMENT_METRICS_DISTRIBUTION_PERCENTILES-HISTOGRAM_HTTP_SERVER_REQUESTS: "true"
     ports:
       - 8083:8083
@@ -145,6 +148,7 @@ services:
       JAVA_TOOL_OPTIONS: "-javaagent:/otel/otel-javaagent.jar"
       OTEL_SERVICE_NAME: "genai-service"
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4318"
+      OTEL_METRICS_EXPORTER: "none"
       MANAGEMENT_METRICS_DISTRIBUTION_PERCENTILES-HISTOGRAM_HTTP_SERVER_REQUESTS: "true"
     ports:
       - 8084:8084
@@ -173,6 +177,7 @@ services:
       JAVA_TOOL_OPTIONS: "-javaagent:/otel/otel-javaagent.jar"
       OTEL_SERVICE_NAME: "api-gateway"
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4318"
+      OTEL_METRICS_EXPORTER: "none"
       MANAGEMENT_METRICS_DISTRIBUTION_PERCENTILES-HISTOGRAM_HTTP_SERVER_REQUESTS: "true"
     ports:
       - 8080:8080
