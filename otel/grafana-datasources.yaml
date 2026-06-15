@@ -13,6 +13,7 @@ datasources:
 
   - name: Prometheus
     type: prometheus
+    uid: prometheus
     access: proxy
     url: http://prometheus:9090
 

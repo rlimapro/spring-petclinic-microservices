@@ -211,7 +211,7 @@ services:
       - otel-agent:/otel
 
   otel-collector:
-    image: otel/opentelemetry-collector-contrib:latest
+    image: otel/opentelemetry-collector-contrib:0.154.0
     volumes:
       - ./otel/otel-collector-config.yaml:/etc/otel/config.yaml
     command: ["--config", "/etc/otel/config.yaml"]
@@ -233,7 +233,7 @@ services:
       - petclinic-net
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v3.12.0
     volumes:
       - ./otel/prometheus.yaml:/etc/prometheus/prometheus.yml
     ports:
@@ -242,7 +242,7 @@ services:
       - petclinic-net
 
   grafana-loki:
-    image: grafana/loki:latest
+    image: grafana/loki:3.7.2
     command: [ "-config.file=/etc/loki/loki.yaml" ]
     volumes:
       - ./otel/loki.yaml:/etc/loki/loki.yaml
@@ -252,7 +252,7 @@ services:
       - petclinic-net
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:13.0.2
     ports:
       - "3000:3000"
     environment:
@@ -260,8 +260,11 @@ services:
       GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
     volumes:
       - ./otel/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./otel/dashboards:/etc/grafana/provisioning/dashboards
     depends_on:
       - grafana-tempo
+      - prometheus
+      - grafana-loki
     networks:
       - petclinic-net
 
